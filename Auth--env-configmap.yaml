@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  DATABASE: mongodb://mongo:27017/user_auth
+  PORT: "8000"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: node-app-Auth--env
+  name: Auth--env

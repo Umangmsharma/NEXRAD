@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cache-app
+  name: cache-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cache-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/mern-app: "true"
+        io.kompose.service: cache-app
+    spec:
+      containers:
+        - image: cache-app
+          name: cache-app
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: cache-app-claim0
+      restartPolicy: Always
+      volumes:
+        - name: cache-app-claim0
+          persistentVolumeClaim:
+            claimName: cache-app-claim0
+status: {}
